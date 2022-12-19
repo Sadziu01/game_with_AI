@@ -24,9 +24,12 @@ public class MyFrame extends JFrame {
 	JButton hostButton = new JButton("HostApp");
 	JButton playerButton = new JButton("PlayerApp");
 
+
 	Host host;
 	Player player;
 
+
+	public static Statistics stats = new Statistics();
 
 	public static JLabel lblPoints;
 	private final JLabel lblPortHost = new JLabel("Port:");
@@ -35,7 +38,7 @@ public class MyFrame extends JFrame {
 	private final JTextField playerConnectWithHost = new JTextField();
 	private final JToggleButton btnListenHost = new JToggleButton("Listen");
 	private final JToggleButton btnConnectWithHost = new JToggleButton("Connect");
-
+	private final JButton statsButton = new JButton("Stats");
 
 	/**
 	 * Create the frame.
@@ -145,6 +148,18 @@ public class MyFrame extends JFrame {
 		lblPoints.setFont(new Font("Tahoma", Font.BOLD, 29));
 		lblPoints.setBounds(21, 501, 182, 63);
 		playerPanel.add(lblPoints);
+
+
+		statsButton.setBounds(606, 529, 89, 23);
+		hostPanel.add(statsButton);
+
+		statsButton.addActionListener(e -> {
+			if(btnListenHost.isSelected()){
+				stats.showStats(stats);
+			}
+		});
+
+
 
 		cl.show(contentPane, "1");
 	}

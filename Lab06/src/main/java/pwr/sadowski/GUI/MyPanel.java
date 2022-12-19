@@ -1,5 +1,6 @@
 package pwr.sadowski.GUI;
 
+import pwr.sadowski.operators.Host;
 import pwr.sadowski.variables.OObject;
 
 import javax.swing.*;
@@ -44,5 +45,6 @@ public class MyPanel extends JPanel {
                 }
             }
         }
+        MyFrame.stats.update();
     }
 }

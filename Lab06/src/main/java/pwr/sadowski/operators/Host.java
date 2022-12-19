@@ -15,7 +15,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import static pwr.sadowski.GUI.MyFrame.hostPanel;
 
 public class Host extends SocketControler {
-    private HashSet<Integer> uniquePorts = new HashSet<>();
+    public static HashMap<Integer, Integer> uniquePorts = new HashMap<>();
     private final BlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
 
@@ -170,8 +170,10 @@ public class Host extends SocketControler {
                             Position tresurePossition = new Position(Integer.parseInt(splittedArray[4]), Integer.parseInt(splittedArray[5]));
                             if (map[tresurePossition.getY()][tresurePossition.getX()].getContent() == 'T') {
                                 map[tresurePossition.getY()][tresurePossition.getX()].setContent('E');
-                                //TODO punktacja
-                                messageToSend = "T;" + tresurePossition.getY() + ";" + tresurePossition.getX();
+
+                                uniquePorts.put(portToSend, uniquePorts.get(portToSend) + 1);
+
+                                messageToSend = "T;" + tresurePossition.getY() + ";" + tresurePossition.getX() + ";" + uniquePorts.get(portToSend);
                             } else {
                                 messageToSend = "F";
                             }
@@ -201,10 +203,11 @@ public class Host extends SocketControler {
     private int createUniquePort(){
         int personalPort = new Random().nextInt(999);
 
-        if(uniquePorts.contains(personalPort)){
+
+        if(uniquePorts.containsKey(personalPort)){
             createUniquePort();
         }
-        uniquePorts.add(personalPort);
+        uniquePorts.put(personalPort, 0);
         return personalPort;
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static java.lang.Thread.sleep;
+import static pwr.sadowski.GUI.MyFrame.hostPanel;
 import static pwr.sadowski.GUI.MyFrame.playerPanel;
 
 public class Player extends SocketControler {
@@ -22,7 +23,7 @@ public class Player extends SocketControler {
     private static final ArrayList<Position> fogs = new ArrayList<>();
 
     private int portToSend;
-    int score = 0;
+    int score;
 
     public void setPortToSend(int portToSend) throws IOException {
         this.portToSend = portToSend;
@@ -189,6 +190,7 @@ public class Player extends SocketControler {
 
                         if(flag.equals("tb")){
                             String result = splittedArray[1];
+                            score = Integer.parseInt(splittedArray[4]);
 
                             if (result.equals("T")) {
                                 Position toTakeTresure = new Position(cords.getY() + i, cords.getX() + j);
@@ -198,7 +200,6 @@ public class Player extends SocketControler {
                                 }
 
                                 map[Integer.parseInt(splittedArray[2])][Integer.parseInt(splittedArray[3])].setContent('E');
-                                score++;
                                 MyFrame.lblPoints.setText("POINTS: " + score);
                                 playerPanel.repaint();
                             }
